@@ -2,8 +2,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := isPrimeNumber
+LOCAL_MODULE := recursion
 
-LOCAL_SRC_FILES := isPrimeNumber.c
+LOCAL_SRC_FILES := connect.c
 
 include $(BUILD_SHARED_LIBRARY)

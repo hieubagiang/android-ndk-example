@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,19 +18,20 @@ public class MainActivity extends AppCompatActivity {
     static {
         System.loadLibrary("myandroidnativeapp");
         System.loadLibrary("isPrimeNumber");
+
     }
 
     private ActivityMainBinding binding;
     private Button btnCheckJava;
     private Button btnCheckC;
-    private TextInputEditText txtFieldC;
+    private EditText txtFieldC;
     private TextInputEditText txtFieldJava;
     private TextView textViewTimeC;
     private TextView textViewTimeJava;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Connect connect = new Connect();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         getViews(binding);
         setContentView(binding.getRoot());
@@ -38,52 +40,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(!txtFieldC.getText().toString().isEmpty()){
-                    int no = Integer.parseInt(txtFieldC.getText().toString());
-                    long start1= System.currentTimeMillis();
-                    if(isPrimeNumber(no)==1){
-                        Toast.makeText(MainActivity.this,"Prime Number",Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(MainActivity.this,"Not Prime Number",Toast.LENGTH_LONG).show();
+                    String out="";
+                    long input = Long.valueOf( txtFieldC.getText().toString());
+                    long start = System.currentTimeMillis();
 
-                    }
-                    long end1 = System.currentTimeMillis();
-                    long t1= (end1-start1)/2;
-                    String s1=String.valueOf(t1);
-                    s1=s1+" mili giây";
-                    textViewTimeC.setText("Thời gian: "+ s1);
+                    long result = connect.javaRecursive(input);
+
+                    long stop = System.currentTimeMillis();
+
+                    out += String.format("Time taken for Java recursion: %d (%d msec)", result, stop - start);
+
+                    start = System.currentTimeMillis();
+
+                    long res = connect.nativeRecursive(Integer.valueOf(String.valueOf(input)));
+
+                    stop = System.currentTimeMillis();
+
+                    out += String.format("\n\nTime taken for native recursion: %d (%d msec)", res, stop - start);
+
+
+                    textViewTimeC.setText(out);
                 }
             }
         });
-        btnCheckJava.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!txtFieldJava.getText().toString().isEmpty()){
-                    int no = Integer.parseInt(txtFieldJava.getText().toString());
-                    long start1= System.currentTimeMillis();
-                    if(isPrimeNumberJava(no)==1){
-                        Toast.makeText(MainActivity.this,"Prime Number",Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(MainActivity.this,"Not Prime Number",Toast.LENGTH_LONG).show();
 
-                    }
-                    long end1 = System.currentTimeMillis();
-                    long t1= (end1-start1)/2;
-                    String s1=String.valueOf(t1);
-                    s1=s1+" mili giây";
-                    textViewTimeJava.setText("Thời gian: "+ s1);
-                }
-            }
-        });
     }
 
     private void getViews(ActivityMainBinding binding) {
-        btnCheckC = binding.btnCheckC;
-        btnCheckJava=binding.btnCheckJava;
-        txtFieldC=binding.textFieldC;
+        btnCheckC = binding.buttonGo;
+//        btnCheckJava=binding.btnCheckJava;
+        txtFieldC=binding.editInput;
+        textViewTimeC=binding.textResult;
+        /*
         txtFieldJava=binding.textFieldJava;
         textViewTimeC= binding.txtTimeC;
         textViewTimeJava=binding.txtTimeJava;
-    }
+*/    }
 
     /**
      * A native method that is implemented by the 'myandroidnativeapp' native library,
@@ -92,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public native String stringFromJNI();
     public native String helloFromNative();
     public native int isPrimeNumber(int number);
+
     public  int isPrimeNumberJava(int number){
         int isPrime = 1;
         for(int i=2;i<=number/2;i++){
@@ -103,4 +96,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return isPrime;
     }
+
+    public static long javaRecursive(long n) {
+        if(n!=0)
+        {
+            n+=javaRecursive(n-1)+javaRecursive(n-1);
+        }
+        return n;
+    }
+
 }

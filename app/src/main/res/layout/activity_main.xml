@@ -7,71 +7,50 @@
     android:padding="16dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Android Native App"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:layout_marginBottom="16dp"
-        />
+    <TextView android:layout_width="fill_parent"
+
+    android:layout_height="wrap_content" android:text="JAVA vs Native"
+
+    android:gravity="center" android:textSize="40sp"
+
+    android:layout_margin="10dp" />
+
+    <LinearLayout android:layout_width="wrap_content"
+
+    android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:id="@+id/editInput"
+            android:text="22"
+            android:hint="Input"
+            android:textSize="30sp"
+            android:inputType="number"
+
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonGo"
+
+            android:text="Go"
+            android:textSize="30sp"
+            android:layout_margin="10sp" />
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sử dụng C:"
-        android:gravity="left"
-        android:layout_marginBottom="4dp"
-        />
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/text_field_c"
-        />
-    <TextView
-        android:id="@+id/txt_time_c"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thời gian: "
-        android:gravity="left"
-        android:layout_marginBottom="8dp"
-        />
-    <Button
-        android:id="@+id/btn_check_c"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#dc9e1a"
-        android:text="Check C"
-android:layout_marginBottom="16dp"        />
 
-    <TextView
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sử dụng Java:"
-        android:gravity="left"
-        android:paddingBottom="4dp"
-        />
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/textResult"
+
         android:text=""
-        android:id="@+id/text_field_java"
-        />
-    <TextView
-        android:id="@+id/txt_time_java"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thời gian: "
-        android:gravity="left"
-        android:layout_marginBottom="8dp"
-        />
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_check_java"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#dc9e1a"
-        android:text="Check java" />
 
-</LinearLayout>
+    </LinearLayout>
