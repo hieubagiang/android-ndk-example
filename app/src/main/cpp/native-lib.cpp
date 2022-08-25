@@ -15,3 +15,7 @@ jobject /* this */) {
 std::string hello = "Hello from native";
 return env->NewStringUTF(hello.c_str());
 }
+
+
+
+
